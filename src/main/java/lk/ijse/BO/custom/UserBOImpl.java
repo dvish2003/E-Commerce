@@ -44,7 +44,7 @@ public class UserBOImpl implements UserBO {
 
     @Override
     public boolean delete(String ID) throws Exception {
-        return false;
+        return userDAO.delete(ID);
     }
 
     @Override

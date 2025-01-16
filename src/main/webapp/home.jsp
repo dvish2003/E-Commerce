@@ -36,10 +36,10 @@
                     <a class="nav-link" href="#">Order</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Account</a>
+                    <a class="nav-link" href="UserDelete.jsp">Account</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="userLogin.jsp">Log out</a>
+                    <a class="nav-link" href="index.jsp">Log out</a>
                 </li>
             </ul>
         </div>
