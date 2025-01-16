@@ -8,6 +8,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
+<style>
+
+</style>
 <head>
     <title>JSP - Hello World</title>
     <!-- Bootstrap CSS -->
@@ -22,12 +25,15 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav me-auto">
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Category</a>
+                    <a class="nav-link" href="Category.jsp">Category</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Products</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Cart</a>
@@ -42,15 +48,15 @@
                     <a class="nav-link" href="index.jsp">Log out</a>
                 </li>
             </ul>
+            <!-- Search Bar -->
+            <form class="d-flex" action="SearchServlet" method="get">
+                <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search" required>
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
         </div>
     </div>
 </nav>
 
-<!-- Content -->
-<div class="container mt-4">
-    <h1><%= "Welcome to E-Commerce Website!" %></h1>
-    <p>Welcome to my first JSP page</p>
-</div>
 
 <!-- Bootstrap JS Bundle -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

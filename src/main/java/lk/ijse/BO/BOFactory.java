@@ -1,5 +1,6 @@
 package lk.ijse.BO;
 
+import lk.ijse.BO.custom.CategoryBOImpl;
 import lk.ijse.BO.custom.UserBOImpl;
 
 public class BOFactory {
@@ -20,6 +21,11 @@ public class BOFactory {
         switch (boType){
             case User:
             return new UserBOImpl();
+
+            case Category:
+                return new CategoryBOImpl();
+
+            case Order:
 
             default:
                 return null;
