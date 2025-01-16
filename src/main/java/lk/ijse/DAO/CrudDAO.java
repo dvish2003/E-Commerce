@@ -1,4 +1,4 @@
-package lk.ijse.ecommerce.DAO;
+package lk.ijse.DAO;
 
 import java.sql.SQLException;
 import java.util.List;

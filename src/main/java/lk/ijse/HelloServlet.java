@@ -1,4 +1,4 @@
-package lk.ijse.ecommerce;
+package lk.ijse;
 
 import java.io.*;
 

@@ -1,4 +1,4 @@
-package lk.ijse.ecommerce.Config;/*
+package lk.ijse.Config;/*
 package lk.ijse.Config;
 
 import jakarta.servlet.ServletContext;

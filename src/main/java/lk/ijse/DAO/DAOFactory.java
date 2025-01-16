@@ -1,4 +1,6 @@
-package lk.ijse.ecommerce.DAO;
+package lk.ijse.DAO;
+
+import lk.ijse.DAO.custom.*;
 
 public class DAOFactory {
     private static DAOFactory daoFactory;
@@ -11,10 +13,26 @@ public class DAOFactory {
     }
 
     public enum DaoType {
-        Customer, Item, Payment, Order, Order_Detail
+        Cart, Category, Order, User, Order_Detail
     }
 
     public SuperDAO getDAO(DaoType daoType) {
+switch (daoType) {
+    case Cart:
+        return new CartDAOImpl();
+    case Category:
+        return new CategoryDAOImpl();
+    case Order:
+        return new OrderDAOImpl();
+    case User:
+        return new UserDAOImpl();
+    case Order_Detail:
+        return new Order_DetailDAOImpl();
+    default:
+        return null;
+    }
+    }
+}
       /*  switch (daoType) {
             case Customer:
                 return new CustomerDAOImpl();
@@ -31,7 +49,3 @@ public class DAOFactory {
             default:
                 return null;
         }*/
-        return null;
-    }
-
-}

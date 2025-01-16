@@ -1,4 +1,4 @@
-package lk.ijse.ecommerce.DAO;
+package lk.ijse.DAO;
 
 public interface SuperDAO {
 }

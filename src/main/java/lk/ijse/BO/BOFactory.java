@@ -1,4 +1,6 @@
-package lk.ijse.ecommerce.BO;
+package lk.ijse.BO;
+
+import lk.ijse.BO.custom.UserBOImpl;
 
 public class BOFactory {
     private static BOFactory boFactory;
@@ -10,10 +12,19 @@ public class BOFactory {
         return (boFactory == null) ? boFactory = new BOFactory() : boFactory;
     }
     public enum BoType{
-        Customer, Item, Payment, Order, Order_Detail
+        Cart, Category, Order, User, Order_Detail
+
 
     }
     public SuperBO getBo(BoType boType){
+        switch (boType){
+            case User:
+            return new UserBOImpl();
+
+            default:
+                return null;
+        }
+
         /*switch (boType){
 
             case Customer:
@@ -32,6 +43,5 @@ public class BOFactory {
                 return null;
 
         }*/
-        return null;
     }
 }

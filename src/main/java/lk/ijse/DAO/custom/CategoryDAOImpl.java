@@ -1,4 +1,6 @@
-package lk.ijse.DAO;
+package lk.ijse.DAO.custom;
+
+import lk.ijse.DAO.SuperDAO;
 
 /**
  * Author: vishmee

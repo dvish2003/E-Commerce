@@ -11,11 +11,8 @@ import lombok.*;
  */
 @Entity
 @Table(name = "cart")
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-class Cart {
+
+public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int cartId;
@@ -31,4 +28,46 @@ class Cart {
     private Integer quantity;
 
     // Getters and setters
+
+    public Cart(int cartId, User user, Product product, Integer quantity) {
+        this.cartId = cartId;
+        this.user = user;
+        this.product = product;
+        this.quantity = quantity;
+    }
+
+    public Cart() {
+    }
+
+    public int getCartId() {
+        return cartId;
+    }
+
+    public void setCartId(int cartId) {
+        this.cartId = cartId;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
 }

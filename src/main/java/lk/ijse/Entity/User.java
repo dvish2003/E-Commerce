@@ -1,6 +1,10 @@
-package lk.ijse.ecommerce.Entity;
+package lk.ijse.Entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +17,11 @@ import java.util.List;
  */
 @Entity
 @Table(name = "users")
-class User {
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userId;
@@ -21,7 +29,7 @@ class User {
     private String username;
     private String password;
     private String email;
-    private Boolean active;
+    private String active;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orders = new ArrayList<>();

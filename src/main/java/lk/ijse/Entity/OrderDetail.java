@@ -1,6 +1,10 @@
-package lk.ijse.ecommerce.Entity;
+package lk.ijse.Entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * Author: vishmee
@@ -10,7 +14,11 @@ import jakarta.persistence.*;
  */
 @Entity
 @Table(name = "order_details")
-class OrderDetail {
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+public class OrderDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int orderDetailId;

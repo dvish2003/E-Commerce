@@ -1,5 +1,9 @@
 package lk.ijse.Servlet;
 
+import org.hibernate.Session;
+import lk.ijse.config.FactoryConfiguration;
+import org.hibernate.Transaction;
+
 /**
  * Author: vishmee
  * Date: 1/16/25
@@ -7,4 +11,11 @@ package lk.ijse.Servlet;
  * Description:
  */
 public class Main {
+    public static void main(String[] args) {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction tx = session.beginTransaction();
+        tx.commit();
+        session.close();
+
+    }
 }
