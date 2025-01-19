@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -50,6 +51,12 @@ public class CategoryDAOImpl implements CategoryDAO {
 
     @Override
     public List<Category> getAll() throws SQLException, ClassNotFoundException {
-        return List.of();
+        List<Category> all = new ArrayList<>();
+        Session session = lk.ijse.config.FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+        all = session.createQuery("from Category").list();
+        transaction.commit();
+        session.close();
+        return all;
     }
 }

@@ -1,6 +1,7 @@
 package lk.ijse.DTO;
 
 import jakarta.persistence.*;
+import lk.ijse.Entity.Category;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,5 +27,7 @@ public class ProductDTO {
     private String name;
     private Double price;
     private String description;
-    private CategoryDTO category;
+    private int quantity;
+    private String imagePath;
+    private Category category;
 }

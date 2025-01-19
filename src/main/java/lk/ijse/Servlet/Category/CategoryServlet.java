@@ -1,5 +1,6 @@
 package lk.ijse.Servlet.Category;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -11,6 +12,9 @@ import lk.ijse.DAO.CategoryDAO;
 import lk.ijse.DTO.CategoryDTO;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Author: vishmee
@@ -18,7 +22,7 @@ import java.io.IOException;
  * Time: 11:39 PM
  * Description:
  */
-@WebServlet (name = "Category" , value = "/CategoryServlet")
+@WebServlet (name = "Category" , value ="/CategoryServlet")
 public class CategoryServlet extends HttpServlet {
     CategoryBO categoryBO = (CategoryBO) BOFactory.getBoFactory().getBo(BOFactory.BoType.Category);
 
@@ -27,7 +31,7 @@ public class CategoryServlet extends HttpServlet {
         String action = req.getParameter("action");
         String category = req.getParameter("categoryName");
         int ID = Integer.parseInt(req.getParameter("categoryID"));
-        boolean result = false;
+        boolean result ;
 
         try {
             // jsp set action and that action send to Category servlet

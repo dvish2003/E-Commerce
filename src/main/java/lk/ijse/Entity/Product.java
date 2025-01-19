@@ -25,10 +25,12 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int productId;
-
     private String name;
     private Double price;
     private String description;
+    private int quantity;
+    private String imagePath;
+
 
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)

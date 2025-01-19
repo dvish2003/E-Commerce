@@ -36,6 +36,11 @@ public class CategoryBOImpl implements CategoryBO {
 
     @Override
     public List<CategoryDTO> getAll() throws SQLException, ClassNotFoundException {
-        return List.of();
+       List<Category> categories = categoryDAO.getAll();
+       List<CategoryDTO> categoryDTO = new ArrayList<CategoryDTO>();
+       for(Category category : categories){
+           categoryDTO.add(new CategoryDTO(category.getCategoryId(),category.getName()));
+       }
+       return categoryDTO;
     }
 }

@@ -1,6 +1,7 @@
 package lk.ijse.BO;
 
 import lk.ijse.BO.custom.CategoryBOImpl;
+import lk.ijse.BO.custom.ProductBOImpl;
 import lk.ijse.BO.custom.UserBOImpl;
 
 public class BOFactory {
@@ -13,7 +14,7 @@ public class BOFactory {
         return (boFactory == null) ? boFactory = new BOFactory() : boFactory;
     }
     public enum BoType{
-        Cart, Category, Order, User, Order_Detail
+        Product,Cart, Category, Order, User, Order_Detail
 
 
     }
@@ -26,6 +27,16 @@ public class BOFactory {
                 return new CategoryBOImpl();
 
             case Order:
+                //return new OrderBOImpl();
+
+            case Order_Detail:
+                //return new Order_DetailBOImpl();
+
+            case Cart:
+                //return new CartBOImpl();
+            case Product:
+                return new ProductBOImpl();
+
 
             default:
                 return null;
