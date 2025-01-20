@@ -34,8 +34,8 @@ public class CategoryServlet_getAll extends HttpServlet {
             req.setAttribute("alertType", "danger");
             req.setAttribute("alertMessage", "Error loading categories: " + e.getMessage());
         }
-        RequestDispatcher rd  = req.getRequestDispatcher("category-List.jsp");
-        rd.forward(req, resp);
+        /*RequestDispatcher rd  = req.getRequestDispatcher("category-List.jsp");
+        rd.forward(req, resp);*/
 
     }
 }

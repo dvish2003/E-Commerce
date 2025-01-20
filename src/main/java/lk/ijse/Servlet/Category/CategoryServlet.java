@@ -37,28 +37,44 @@ public class CategoryServlet extends HttpServlet {
             // jsp set action and that action send to Category servlet
             //copy right VM
             switch (action) {
+
                 case "add":
-                    result = categoryBO.save(new CategoryDTO(1, category));
-                    if (result) {
-                        req.setAttribute("alertType", "success");
-                        req.setAttribute("alertMessage", "Category added successfully.");
-                    } else {
+                    if (category.isEmpty()){
                         req.setAttribute("alertType", "danger");
-                        req.setAttribute("alertMessage", "Failed to add category.");
+                        req.setAttribute("alertMessage", "Category name is required.");
+                        break;
+                    }else{
+                        result = categoryBO.save(new CategoryDTO(1, category));
+                        if (result) {
+                            req.setAttribute("alertType", "success");
+                            req.setAttribute("alertMessage", "Category added successfully.");
+                        } else {
+                            req.setAttribute("alertType", "danger");
+                            req.setAttribute("alertMessage", "Failed to add category.");
+                        }
+                        break;
                     }
-                    break;
+
 
                 case "update":
-                    System.out.println(action);
-                    result = categoryBO.update(new CategoryDTO(ID,category));
-                    if (result) {
-                        req.setAttribute("alertType", "success");
-                        req.setAttribute("alertMessage", "Category updated successfully.");
-                    } else {
+
+                    if (category.isEmpty()){
                         req.setAttribute("alertType", "danger");
-                        req.setAttribute("alertMessage", "Failed to update category.");
+                        req.setAttribute("alertMessage", "Category name is required.");
+                        break;
+                    }else{
+                        System.out.println(action);
+                        result = categoryBO.update(new CategoryDTO(ID,category));
+                        if (result) {
+                            req.setAttribute("alertType", "success");
+                            req.setAttribute("alertMessage", "Category updated successfully.");
+                        } else {
+                            req.setAttribute("alertType", "danger");
+                            req.setAttribute("alertMessage", "Failed to update category.");
+                        }
+                        break;
                     }
-                    break;
+
 
                 case "delete":
                     System.out.println(action);

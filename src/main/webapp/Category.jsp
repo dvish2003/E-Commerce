@@ -118,7 +118,7 @@
             <ul class="navbar-nav me-auto">
                 <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="Category.jsp">Category</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Products</a></li>
+                <li class="nav-item"><a class="nav-link" href="Product.jsp">Products</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">Cart</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">Order</a></li>
                 <li class="nav-item"><a class="nav-link" href="UserDelete.jsp">Account</a></li>
@@ -139,7 +139,7 @@
                 <label for="categoryID" class="form-label">Category ID</label>
                 <input type="number" class="form-control" name="categoryID" id="categoryID" placeholder="Enter category ID" required>
                 <label for="categoryName" class="form-label mt-3">Category Name</label>
-                <input type="text" class="form-control" name="categoryName" id="categoryName" placeholder="Enter category name" required>
+                <input type="text" class="form-control" name="categoryName" id="categoryName" placeholder="Enter category name">
             </div>
             <input type="hidden" name="action" id="action" value="add">
             <div class="d-flex justify-content-center gap-3 mt-4">

@@ -356,7 +356,7 @@
   <!-- Product Form Section -->
   <section id="productForm" class="mb-5">
     <h2 class="text-center mb-4">Add New Product</h2>
-    <form action="ProductServlet" method="post" enctype="multipart/form-data" class="card p-4 shadow-sm">
+    <form action="ProductServlet" method="get" enctype="multipart/form-data" class="card p-4 shadow-sm">
       <input type="hidden" name="action" value="add">
       <div class="mb-3">
         <label for="name" class="form-label">Name:</label>
@@ -369,8 +369,19 @@
       <div class="mb-3">
         <label for="category" class="form-label">Category:</label>
         <select name="category" id="category" class="form-control" required>
-          <option value=""></option>
+          <option value="">Select a Category</option>
+          <%
+            List<CategoryDTO> categories = (List<CategoryDTO>) request.getAttribute("categories");
+            if (categories != null) {
+              for (CategoryDTO category : categories) {
+          %>
+          <option value="<%=category.getName()%>"></option>
+          <%
+              }
+            }
+          %>
         </select>
+
       </div>
       <div class="mb-3">
         <label for="price" class="form-label">Price:</label>

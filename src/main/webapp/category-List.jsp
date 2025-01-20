@@ -98,7 +98,30 @@
     </style>
 </head>
 <body>
-
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">VishMart</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="Category.jsp">Category</a></li>
+                <li class="nav-item"><a class="nav-link" href="Product.jsp">Products</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Cart</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Order</a></li>
+                <li class="nav-item"><a class="nav-link" href="UserDelete.jsp">Account</a></li>
+                <li class="nav-item"><a class="nav-link" href="index.jsp">Log out</a></li>
+            </ul>
+            <form class="d-flex" action="" method="get">
+                <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search" required>
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
 <div class="container">
     <h3 class="text-center mb-4">Category List</h3>
 
@@ -106,7 +129,7 @@
     <div class="alert alert-<%= alertType %>" role="alert">
         <%= alertMessage %>
     </div>
-    <% } %>
+    <% } %>post
 
     <% if (dataList != null && !dataList.isEmpty()) { %>
     <div class="table-responsive">
