@@ -1,13 +1,9 @@
 package lk.ijse.DTO;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Author: vishmee
@@ -15,7 +11,6 @@ import java.util.List;
  * Time: 1:43 AM
  * Description:
  */
-import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,6 +21,6 @@ public class UserDTO {
     private String username;
     private String password;
     private String email;
-    private String active;
+    private String Role;
 
 }

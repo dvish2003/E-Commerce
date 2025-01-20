@@ -129,7 +129,7 @@
     <div class="alert alert-<%= alertType %>" role="alert">
         <%= alertMessage %>
     </div>
-    <% } %>post
+    <% } %>
 
     <% if (dataList != null && !dataList.isEmpty()) { %>
     <div class="table-responsive">

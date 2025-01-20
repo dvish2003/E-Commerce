@@ -5,6 +5,7 @@ import lk.ijse.DAO.DAOFactory;
 import lk.ijse.DAO.ProductDAO;
 import lk.ijse.DTO.CategoryDTO;
 import lk.ijse.DTO.ProductDTO;
+import lk.ijse.Entity.Category;
 import lk.ijse.Entity.Product;
 
 import java.sql.SQLException;
@@ -21,7 +22,7 @@ public class ProductBOImpl implements ProductBO {
     ProductDAO productDA0 = (ProductDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DaoType.Product);
     @Override
     public boolean save(ProductDTO dto) throws Exception {
-        return productDA0.save(new Product(dto.getProductId(),dto.getName(),dto.getPrice(), dto.getDescription(),dto.getQuantity(),dto.getImagePath(),dto.getCategory(),new ArrayList<>(),new ArrayList<>()));
+        return productDA0.save(new Product(dto.getProductId(),dto.getName(),dto.getPrice(), dto.getDescription(),dto.getQuantity(),dto.getImagePath(),new Category(dto.getCategory().getCategoryId(),dto.getCategory().getName(),new ArrayList<>()),new ArrayList<>(),new ArrayList<>()));
 
     }
 

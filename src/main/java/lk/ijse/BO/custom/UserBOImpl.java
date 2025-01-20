@@ -25,7 +25,7 @@ public class UserBOImpl implements UserBO {
                 dto.getUsername(),
                 dto.getPassword(),
                 dto.getEmail(),
-                dto.getActive(),
+                dto.getRole(),
                 new ArrayList<>(),
                 new ArrayList<>()));
     }
@@ -37,7 +37,7 @@ public class UserBOImpl implements UserBO {
                 dto.getUsername(),
                 dto.getPassword(),
                 dto.getEmail(),
-                dto.getActive(),
+                dto.getRole(),
                 new ArrayList<>(),
                 new ArrayList<>()));
     }

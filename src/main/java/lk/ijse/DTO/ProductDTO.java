@@ -29,5 +29,5 @@ public class ProductDTO {
     private String description;
     private int quantity;
     private String imagePath;
-    private Category category;
+    private CategoryDTO category;
 }

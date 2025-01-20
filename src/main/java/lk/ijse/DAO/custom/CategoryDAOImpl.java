@@ -1,7 +1,6 @@
 package lk.ijse.DAO.custom;
 
 import lk.ijse.DAO.CategoryDAO;
-import lk.ijse.DAO.SuperDAO;
 import lk.ijse.Entity.Category;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -58,5 +57,15 @@ public class CategoryDAOImpl implements CategoryDAO {
         transaction.commit();
         session.close();
         return all;
+    }
+    @Override
+    public Category searchByID(String id) throws SQLException, ClassNotFoundException {
+        Session session = lk.ijse.config.FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+        Category category = session.createQuery("FROM Category WHERE categoryId = :categoryId", Category.class).setParameter("categoryId",id)
+                .uniqueResult();
+        transaction.commit();
+        session.close();
+        return category;
     }
 }

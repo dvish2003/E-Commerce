@@ -30,25 +30,63 @@ import java.util.List;
 public class ProductServlet extends HttpServlet {
 
     CategoryBO categoryBO = (CategoryBO) BOFactory.getBoFactory().getBo(BOFactory.BoType.Category);
+    ProductBO productBO = (ProductBO) BOFactory.getBoFactory().getBo(BOFactory.BoType.Product);
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<CategoryDTO> categories;
         try {
-            categories = categoryBO.getAll();
-            System.out.println(categories.get(1).getName());
-            System.out.println(categories.get(2).getName());
-            System.out.println(categories.get(3).getName());
+            List<CategoryDTO> categories = categoryBO.getAll();
+            req.setAttribute("categories_product", categories);
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/Product.jsp");
+            dispatcher.forward(req, resp);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(categories.get(1).getName());
-        System.out.println(categories.get(2).getName());
-        System.out.println(categories.get(3).getName());
-        req.setAttribute("categories", categories);
-        RequestDispatcher dispatcher = req.getRequestDispatcher("Product.jsp");
-        dispatcher.forward(req, resp);
+
+    }
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String action = req.getParameter("action");
+        int productId = 1;
+        String name = req.getParameter("name");
+        double price = Double.parseDouble(req.getParameter("price"));
+        String description = req.getParameter("description");
+        int quantity = Integer.parseInt(req.getParameter("quantity"));
+        String imagePath = req.getParameter("image");
+        int categoryId = Integer.parseInt(req.getParameter("categoryID"));
+        boolean result;
+
+        try {
+            Category category = categoryBO.searchByID(String.valueOf(categoryId));
+            CategoryDTO categoryDTO1 = new CategoryDTO(category.getCategoryId(),category.getName());
+
+            switch (action){
+                case "add":
+                        result = productBO.save(new ProductDTO(productId,name,price,description,quantity,imagePath,categoryDTO1));
+                    if (result) {
+                        req.setAttribute("alertType", "success");
+                        req.setAttribute("alertMessage", "Product added successfully.");
+                    } else {
+                        req.setAttribute("alertType", "danger");
+                        req.setAttribute("alertMessage", "Failed to add Product.");
+                    }
+                    break;
+                case "update":
+                    // update product
+                    break;
+                case "delete":
+                    // delete product
+                    break;
+                default:
+                    break;
+            }
+        } catch (Exception e) {
+            req.setAttribute("alertType", "danger");
+            req.setAttribute("alertMessage", "An error occurred: " + e.getMessage());
+        }
+        req.getRequestDispatcher("Product.jsp").forward(req, resp);
+
     }
 }
 

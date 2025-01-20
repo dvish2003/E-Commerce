@@ -43,4 +43,9 @@ public class CategoryBOImpl implements CategoryBO {
        }
        return categoryDTO;
     }
+
+    @Override
+    public Category searchByID(String id) throws SQLException, ClassNotFoundException {
+        return categoryDAO.searchByID(id);
+    }
 }

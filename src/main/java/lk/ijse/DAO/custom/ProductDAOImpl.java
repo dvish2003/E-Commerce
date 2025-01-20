@@ -2,6 +2,9 @@ package lk.ijse.DAO.custom;
 
 import lk.ijse.DAO.ProductDAO;
 import lk.ijse.Entity.Product;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.grammars.hql.HqlParser;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -15,7 +18,12 @@ import java.util.List;
 public class ProductDAOImpl implements ProductDAO {
     @Override
     public boolean save(Product entity) throws Exception {
-        return false;
+        Session session = lk.ijse.config.FactoryConfiguration.getInstance().getSession();
+        Transaction tx = session.beginTransaction();
+        session.save(entity);
+        tx.commit();
+        session.close();
+        return true;
     }
 
     @Override
@@ -32,4 +40,5 @@ public class ProductDAOImpl implements ProductDAO {
     public List<Product> getAll() throws SQLException, ClassNotFoundException {
         return List.of();
     }
+
 }

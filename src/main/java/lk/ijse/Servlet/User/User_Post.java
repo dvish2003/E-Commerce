@@ -81,7 +81,7 @@ public class User_Post extends HttpServlet {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
         String confirmPassword = req.getParameter("confirmPassword");
-        String activate = "Active";
+        String role = "Customer";
 
         try {
             User user = userBO.searchByEmail(email);
@@ -99,7 +99,7 @@ public class User_Post extends HttpServlet {
             }
 
             String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-            UserDTO userDTO = new UserDTO(1, name, hashedPassword, email, activate);
+            UserDTO userDTO = new UserDTO(1, name, hashedPassword, email, role);
 
             userBO.save(userDTO);
             req.setAttribute("success", "User register Success.");

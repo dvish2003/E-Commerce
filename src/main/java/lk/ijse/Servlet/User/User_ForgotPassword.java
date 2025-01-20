@@ -43,7 +43,7 @@ public class User_ForgotPassword extends HttpServlet {
             }
 
             String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-            UserDTO userDTO = new UserDTO(user.getUserId(), user.getUsername(), hashedPassword, user.getEmail(), user.getActive());
+            UserDTO userDTO = new UserDTO(user.getUserId(), user.getUsername(), hashedPassword, user.getEmail(), user.getRole());
             userBO.update(userDTO);
             req.setAttribute("message", "Password updated successfully.");
             req.getRequestDispatcher("UserUpdate.jsp").forward(req, resp);
