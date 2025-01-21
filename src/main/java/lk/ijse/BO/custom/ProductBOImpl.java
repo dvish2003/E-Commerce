@@ -28,16 +28,28 @@ public class ProductBOImpl implements ProductBO {
 
     @Override
     public boolean update(ProductDTO dto) throws Exception {
-        return false;
+        return productDA0.update(new Product(dto.getProductId(),dto.getName(),dto.getPrice(), dto.getDescription(),dto.getQuantity(),dto.getImagePath(),new Category(dto.getCategory().getCategoryId(),dto.getCategory().getName(),new ArrayList<>()),new ArrayList<>(),new ArrayList<>()));
     }
 
     @Override
     public boolean delete(String ID) throws Exception {
-        return false;
+        return productDA0.delete(ID);
     }
 
     @Override
     public List<ProductDTO> getAll() throws SQLException, ClassNotFoundException {
-        return List.of();
+        List<Product> products = productDA0.getAll();
+        List<ProductDTO> productDTOS = new ArrayList<ProductDTO>();
+        for(Product product : products){
+            productDTOS.add(new ProductDTO(
+                    product.getProductId(),
+                    product.getName(),
+                    product.getPrice(),
+                    product.getDescription(),
+                    product.getQuantity(),
+                    product.getImagePath(),
+                    new CategoryDTO(product.getCategory().getCategoryId(), product.getCategory().getName())));
+        }
+        return productDTOS;
     }
 }
