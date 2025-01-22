@@ -62,4 +62,15 @@ public class UserDAOImpl implements UserDAO {
         session.close();
         return user;
     }
+
+    @Override
+    public User getLastUser(){
+        Session session = lk.ijse.config.FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+        User user = session.createQuery("FROM User ORDER BY userId DESC LIMIT 1", User.class).uniqueResult();
+        transaction.commit();
+        session.close();
+        return user;
+
+    }
 }

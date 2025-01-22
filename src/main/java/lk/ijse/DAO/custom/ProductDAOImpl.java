@@ -1,12 +1,9 @@
 package lk.ijse.DAO.custom;
 
 import lk.ijse.DAO.ProductDAO;
-import lk.ijse.Entity.Category;
 import lk.ijse.Entity.Product;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.grammars.hql.HqlParser;
 import org.hibernate.query.Query;
 
 import java.sql.SQLException;
@@ -85,6 +82,19 @@ public class ProductDAOImpl implements ProductDAO {
         all = session.createQuery("from Product").list();
         transaction.commit();
         session.close();
-        return all;    }
+        return all; 
+    }
+
+    @Override
+    public Product searchByName(String name) throws SQLException, ClassNotFoundException {
+        Session session = lk.ijse.config.FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+        Product product = session.createQuery("FROM Product WHERE name = :name", Product.class).setParameter("name",name)
+                .uniqueResult();
+        transaction.commit();
+        session.close();
+        return product;
+    }
 
 }
+

@@ -53,7 +53,7 @@
                     <a class="nav-link" href="Product-List">Products</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Cart</a>
+                    <a class="nav-link" href="Cart.jsp">Cart</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Order</a>
@@ -88,9 +88,19 @@
                 <div class="card-body">
                     <h5 class="card-title"><%= productDTO.getName() %></h5>
                     <p class="card-text">Price: $<%= productDTO.getPrice() %></p>
+                    <form action="AddToCartServlet" method="post">
+                    <div class="mb-3 d-flex align-items-center">
+                        <label for="quantity_<%= productDTO.getName() %>" class="me-2">Qty:</label>
+                        <input type="number" id="quantity_<%= productDTO.getName() %>" name="quantity" class="form-control" style="width: 70px;" min="1" max="<%= productDTO.getQuantity() %>" required>
+<%--
+                        <input id="price" type="number" step="0.01" name="price" class="form-control" placeholder="Enter Price" required>
+--%>
+
+                    </div>
+
+                    <p class="card-text">Description: <%= productDTO.getDescription() %></p>
                     <p class="card-text">Available Stock: <%= productDTO.getQuantity() %></p>
                     <p class="card-text">Category: <%= productDTO.getCategory().getName() %></p>
-                    <form action="AddToCartServlet" method="post">
                         <input type="hidden" name="productName" value="<%= productDTO.getName() %>">
                         <input type="hidden" name="productPrice" value="<%= productDTO.getPrice() %>">
                         <button type="submit" class="btn btn-primary w-100">Add to Cart</button>

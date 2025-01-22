@@ -19,7 +19,7 @@ import java.util.List;
  * Time: 4:12 PM
  * Description:
  */
-@WebServlet(name = "home_Product", value = "/CustomerHomeProduct")
+@WebServlet(name = "Customer_home_Product", value = "/CustomerHomeProduct")
 public class CustomerHomeProduct extends HttpServlet {
     ProductBO productBO = (ProductBO) BOFactory.getBoFactory().getBo(BOFactory.BoType.Product);
     @Override
@@ -27,7 +27,7 @@ public class CustomerHomeProduct extends HttpServlet {
         /*super.doGet(req, resp);*/
         try {
             List<ProductDTO> productDTOS = productBO.getAll();
-            req.setAttribute("homeProducts", productDTOS);
+            req.setAttribute("CustomerHomeProducts", productDTOS);
             RequestDispatcher rd1  = req.getRequestDispatcher("customerHome.jsp");
             rd1.forward(req, resp);
 

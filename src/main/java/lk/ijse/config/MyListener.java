@@ -1,4 +1,4 @@
-package lk.ijse.Config;/*
+package lk.ijse.config;/*
 package lk.ijse.Config;
 
 import jakarta.servlet.ServletContext;

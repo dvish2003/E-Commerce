@@ -2,6 +2,8 @@ package lk.ijse.DAO;
 
 import lk.ijse.Entity.Product;
 
+import java.sql.SQLException;
+
 /**
  * Author: vishmee
  * Date: 1/19/25
@@ -9,4 +11,5 @@ import lk.ijse.Entity.Product;
  * Description:
  */
 public interface ProductDAO extends CrudDAO<Product> {
+    Product searchByName(String name) throws SQLException, ClassNotFoundException;
 }

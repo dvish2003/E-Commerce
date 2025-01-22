@@ -7,7 +7,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lk.ijse.BO.BOFactory;
+import lk.ijse.BO.LoginBO;
 import lk.ijse.BO.UserBO;
+import lk.ijse.BO.custom.LoginBOImpl;
+import lk.ijse.DTO.LoginDTO;
+import lk.ijse.Entity.Login;
 import lk.ijse.Entity.User;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -22,12 +26,12 @@ import java.sql.SQLException;
 @WebServlet(name = "UserLoginServlet", value = "/loginServlet")
 public class User_Get extends HttpServlet {
     UserBO userBO = (UserBO) BOFactory.getBoFactory().getBo(BOFactory.BoType.User);
-
+    LoginBO loginBO = (LoginBO) BOFactory.getBoFactory().getBo(BOFactory.BoType.Login);
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String userEmail = req.getParameter("username");
         String password = req.getParameter("password");
-
+        LoginDTO login = new LoginDTO(1,userEmail);
         try {
             User user = userBO.searchByEmail(userEmail);
 
@@ -44,14 +48,19 @@ public class User_Get extends HttpServlet {
             }
             if (user.getRole().equals("Admin")){
                 resp.sendRedirect("home.jsp");
+                loginBO.save(login);
 
             }else if (user.getRole().equals("Customer")){
                 resp.sendRedirect("customerHome.jsp");
+                loginBO.save(login);
+
             }
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
             req.setAttribute("error", "please try Again.");
             req.getRequestDispatcher("index.jsp").forward(req, resp);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }

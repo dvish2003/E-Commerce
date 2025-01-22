@@ -13,7 +13,7 @@ public class DAOFactory {
     }
 
     public enum DaoType {
-        Product,Cart, Category, Order, User, Order_Detail
+        Product,Cart, Category, Order, User, Order_Detail,Login
     }
 
     public SuperDAO getDAO(DaoType daoType) {
@@ -30,6 +30,8 @@ switch (daoType) {
         return new Order_DetailDAOImpl();
         case Product:
             return new ProductDAOImpl();
+            case Login:
+                return new LoginDAOImpl();
 
     default:
         return null;

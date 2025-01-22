@@ -119,7 +119,7 @@
                 <li class="nav-item"><a class="nav-link active" href="${pageContext.request.contextPath}/homeProduct">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="Category.jsp">Category</a></li>
                 <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/Product-List">Products</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Cart</a></li>
+                <li class="nav-item"><a class="nav-link" href="Cart.jsp">Cart</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">Order</a></li>
                 <li class="nav-item"><a class="nav-link" href="UserDelete.jsp">Account</a></li>
                 <li class="nav-item"><a class="nav-link" href="index.jsp">Log out</a></li>
