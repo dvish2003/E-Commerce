@@ -42,7 +42,12 @@ public class User_Get extends HttpServlet {
                 req.getRequestDispatcher("index.jsp").forward(req, resp);
                 return;
             }
-            resp.sendRedirect("home.jsp");
+            if (user.getRole().equals("Admin")){
+                resp.sendRedirect("home.jsp");
+
+            }else if (user.getRole().equals("Customer")){
+                resp.sendRedirect("customerHome.jsp");
+            }
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
             req.setAttribute("error", "please try Again.");

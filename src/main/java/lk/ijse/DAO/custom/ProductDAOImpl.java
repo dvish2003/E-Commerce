@@ -32,13 +32,13 @@ public class ProductDAOImpl implements ProductDAO {
 
     @Override
     public boolean update(Product entity) throws Exception {
-        /*Session session = lk.ijse.config.FactoryConfiguration.getInstance().getSession();
+        Session session = lk.ijse.config.FactoryConfiguration.getInstance().getSession();
         Transaction tx = session.beginTransaction();
         session.update(entity);
         tx.commit();
         session.close();
-        return true;   */
-       Session session = lk.ijse.config.FactoryConfiguration.getInstance().getSession();
+        return true;
+       /*Session session = lk.ijse.config.FactoryConfiguration.getInstance().getSession();
        Transaction tx = session.beginTransaction();
         Query query = session.createQuery(
                 "UPDATE Product p SET " +
@@ -61,7 +61,7 @@ public class ProductDAOImpl implements ProductDAO {
         int result = query.executeUpdate();
         tx.commit();
         session.close();
-        return result > 0;
+        return result > 0;*/
     }
 
     @Override
