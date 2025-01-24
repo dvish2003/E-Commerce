@@ -4,6 +4,9 @@ import lk.ijse.BO.CartBO;
 import lk.ijse.DAO.CartDAO;
 import lk.ijse.DAO.DAOFactory;
 import lk.ijse.DTO.CartDTO;
+import lk.ijse.DTO.CategoryDTO;
+import lk.ijse.DTO.ProductDTO;
+import lk.ijse.DTO.UserDTO;
 import lk.ijse.Entity.Cart;
 import lk.ijse.Entity.Category;
 import lk.ijse.Entity.Product;
@@ -51,11 +54,41 @@ public class CartBOImpl implements CartBO {
 
     @Override
     public boolean delete(String ID) throws Exception {
-        return false;
+        return cartDAO.delete(Integer.parseInt(ID));
+    }
+    @Override
+    public boolean deleteUserID(String ID) throws Exception {
+        return cartDAO.deleteUserID(Integer.parseInt(ID));
     }
 
-    @Override
+        @Override
     public List<CartDTO> getAll() throws SQLException, ClassNotFoundException {
         return List.of();
+    }
+    @Override
+    public List<CartDTO> getCartsByUserId(int userId) {
+           List<Cart> listCart = cartDAO.getCartsByUserId(userId);
+           List<CartDTO> list = new ArrayList<CartDTO>();
+           for(Cart cart : listCart){
+               list.add(new CartDTO(
+                       cart.getCartId(),
+                       new UserDTO(
+                               cart.getUser().getUserId(),
+                               cart.getUser().getUsername(),
+                               cart.getUser().getPassword(),
+                               cart.getUser().getEmail(),
+                               cart.getUser().getRole()),
+                       new ProductDTO(
+                               cart.getProduct().getProductId(),
+                               cart.getProduct().getName(),
+                               cart.getProduct().getPrice(),
+                               cart.getProduct().getDescription(),
+                               cart.getProduct().getQuantity(),
+                               cart.getProduct().getImagePath(),
+                       new CategoryDTO(cart.getProduct().getCategory().getCategoryId(),cart.getProduct().getCategory().getName())),
+                       cart.getQuantity()));
+           }
+
+        return list;
     }
 }

@@ -12,7 +12,7 @@ public class BOFactory {
         return (boFactory == null) ? boFactory = new BOFactory() : boFactory;
     }
     public enum BoType{
-        Product,Cart, Category, Order, User, Order_Detail,Login
+        Product,Cart, Category, Order, User, Order_Detail,Login,Checkout,
 
 
     }
@@ -25,10 +25,10 @@ public class BOFactory {
                 return new CategoryBOImpl();
 
             case Order:
-                //return new OrderBOImpl();
+                return new OrderBOImpl();
 
             case Order_Detail:
-                //return new Order_DetailBOImpl();
+                return new Order_DetailBOImpl();
 
             case Cart:
                 return new CartBOImpl();
@@ -37,7 +37,8 @@ public class BOFactory {
 
             case Login:
                 return new LoginBOImpl();
-
+            case Checkout:
+                return new CheckOutBOImpl();
 
 
             default:

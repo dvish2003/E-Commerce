@@ -54,18 +54,12 @@ public class CartServlet extends HttpServlet {
             if (product!= null) {
                 boolean isSave = cartBO.save(cartDTO);
                 if (isSave) {
-                    System.out.println("Done");
-                    System.out.println(user.getUserId());
-                    System.out.println(user.getEmail());
-                    /*req.setAttribute("alertType", "success");
-                    req.setAttribute("alertMessage", "Product added to cart!");
-                    RequestDispatcher rd = req.getRequestDispatcher("");
-                    rd.forward(req, resp);*/
-                }else {
+                    req.setAttribute("alertType", "success");
+                    req.setAttribute("alertMessage", "Product added to cart successfully!");
+                    req.getRequestDispatcher("home.jsp").forward(req, resp);
+                } else {
                     req.setAttribute("alertType", "error");
                     req.setAttribute("alertMessage", "Failed to add product to cart!");
-                    RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
-                    rd.forward(req, resp);
                 }
             }
 
@@ -79,25 +73,3 @@ public class CartServlet extends HttpServlet {
     }
 }
 
- /*if (product != null) {
-                HttpSession session = req.getSession();
-                List<Product> cart = (List<Product>) session.getAttribute("cart");
-
-                if (cart == null) {
-                    cart = new ArrayList<>();
-                }
-                //  cart ekt tempory products add krnw
-
-                cart.add(product);
-                session.setAttribute("cart", cart);
-
-                req.setAttribute("alertType", "success");
-                req.setAttribute("alertMessage", "Product added to cart!");
-                RequestDispatcher rd = req.getRequestDispatcher("Cart.jsp");
-                rd.forward(req, resp);
-            } else {
-                req.setAttribute("alertType", "error");
-                req.setAttribute("alertMessage", "Product not found!");
-                RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
-                rd.forward(req, resp);
-            }*/

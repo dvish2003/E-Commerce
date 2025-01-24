@@ -1,36 +1,35 @@
 <%@ page import="lk.ijse.DTO.ProductDTO" %>
 <%@ page import="java.util.List" %>
-
+<%@ page import="lk.ijse.DAO.LoginDAO" %>
+<%@ page import="lk.ijse.DAO.UserDAO" %>
+<%@ page import="lk.ijse.DAO.DAOFactory" %>
+<%@ page import="lk.ijse.Entity.Login" %>
+<%@ page import="lk.ijse.Entity.User" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
     String alertType = (String) request.getAttribute("alertType");
     String alertMessage = (String) request.getAttribute("alertMessage");
     List<ProductDTO> dataList = (List<ProductDTO>) request.getAttribute("homeProducts");
+    UserDAO userDAO = (UserDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DaoType.User);
+    LoginDAO loginDAO = (LoginDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DaoType.Login);
+    Login login = loginDAO.getLastLogin();
+    User user = userDAO.searchByEmail(login.getUserMail());
+
 %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products</title>
+    <title>Home Page</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 </head>
 <style>
-   /* .card-img-wrapper {
-        width: 100%;
-        height: 200px;
-        overflow: hidden;
-        border-top-left-radius: 0.25rem; !* Match card border-radius *!
-        border-top-right-radius: 0.25rem;
-    }
 
-    .card-img-top {
-        width: 100%;
-        height: 100%;
-        object-fit: cover; !* Ensures the image covers the container while maintaining aspect ratio *!
-        object-position: center; !* Centers the image *!
-    }*/
 
 </style>
 <body>
@@ -42,34 +41,31 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
+            <%if(user.getRole().equals("Admin")){%>
             <ul class="navbar-nav me-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/homeProduct">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="Category.jsp">Category</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="Product-List">Products</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="Cart.jsp">Cart</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Order</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="UserDelete.jsp">Account</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="index.jsp">Log out</a>
-                </li>
+                <li class="nav-item"><a class="nav-link active" href="${pageContext.request.contextPath}/homeProduct">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="Category.jsp">Category</a></li>
+                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/Product-List">Products</a></li>
+                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/CheckoutServlet">Cart</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Order</a></li>
+                <li class="nav-item"><a class="nav-link" href="UserDelete.jsp">Account</a></li>
+                <li class="nav-item"><a class="nav-link" href="index.jsp">Log out</a></li>
             </ul>
+            <%} else if (user.getRole().equals("Customer")) {%>
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link active" href="${pageContext.request.contextPath}/homeProduct">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/CheckoutServlet">Cart</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Order</a></li>
+                <li class="nav-item"><a class="nav-link" href="UserDelete.jsp">Account</a></li>
+                <li class="nav-item"><a class="nav-link" href="index.jsp">Log out</a></li>
+            </ul>
+            <%}%>
             <!-- Search Bar -->
-            <form class="d-flex" action="SearchServlet" method="get">
-                <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search" required>
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
+
         </div>
     </div>
 </nav>
@@ -113,77 +109,30 @@
     </div>
 </div>
 
-
-<!-- Bootstrap JS Bundle -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    const alertType = '<%= alertType != null ? alertType : "" %>';
+    const alertMessage = '<%= alertMessage != null ? alertMessage : "" %>';
+
+    if (alertType && alertMessage) {
+        Swal.fire({
+            icon: alertType,
+            title: alertType.charAt(0).toUpperCase() + alertType.slice(1),
+            text: alertMessage,
+            confirmButtonText: 'OK'
+        }).then(() => {
+            if (alertType === 'success') {
+                window.location.href = "home.jsp";
+            }
+        });
+    }
+</script>
+
 </body>
 </html>
 
 
-<%--<%@ page import="lk.ijse.DTO.ProductDTO" %>
-<%@ page import="java.util.List" %>
 
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%
-    String alertType = (String) request.getAttribute("alertType");
-    String alertMessage = (String) request.getAttribute("alertMessage");
-    List<ProductDTO> dataList = (List<ProductDTO>) request.getAttribute("products");
-%>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-<!-- Navbar -->
-<%@ include file="navbar.jsp" %>
-
-<!-- Alert Messages -->
-<% if (alertType != null && alertMessage != null) { %>
-    <div class="alert alert-<%= alertType %> alert-dismissible fade show" role="alert">
-        <%= alertMessage %>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-<% } %>
-
-<!-- Product Cards Section -->
-<div class="container mt-5">
-    <h2 class="text-center mb-4">Our Products</h2>
-    <div class="row">
-        <% if (dataList != null && !dataList.isEmpty()) { %>
-        <% for (ProductDTO productDTO : dataList) { %>
-        <div class="col-md-4 col-lg-3 mb-4">
-            <div class="card shadow-sm">
-                <img src="images/<%= productDTO.getImagePath() != null ? productDTO.getImagePath() : "default.jpg" %>"
-                     class="card-img-top" alt="<%= productDTO.getName() %>"
-                     style="height: 200px; object-fit: cover;">
-                <div class="card-body">
-                    <h5 class="card-title"><%= productDTO.getName() %></h5>
-                    <p class="card-text">Price: $<%= productDTO.getPrice() %></p>
-                    <p class="card-text">Category: <%= productDTO.getCategory().getName() %></p>
-                    <form action="AddToCartServlet" method="post">
-                        <input type="hidden" name="productName" value="<%= productDTO.getName() %>">
-                        <input type="hidden" name="productPrice" value="<%= productDTO.getPrice() %>">
-                        <button type="submit" class="btn btn-primary w-100">Add to Cart</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <% } %>
-        <% } else { %>
-        <p class="text-center text-muted">No products available.</p>
-        <% } %>
-    </div>
-</div>
-
-<!-- Bootstrap JS Bundle -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>--%>
 
 
 <%--

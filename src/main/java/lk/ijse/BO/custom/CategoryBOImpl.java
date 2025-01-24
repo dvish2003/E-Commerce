@@ -31,7 +31,7 @@ public class CategoryBOImpl implements CategoryBO {
 
     @Override
     public boolean delete(String ID) throws Exception {
-        return categoryDAO.delete(ID);
+        return categoryDAO.delete(Integer.parseInt(ID));
     }
 
     @Override

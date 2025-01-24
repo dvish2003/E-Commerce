@@ -1,54 +1,10 @@
-/*
-package lk.ijse.Servlet.User;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import lk.ijse.Entity.User;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-
-import java.io.IOException;
-import java.util.ArrayList;
-
-*/
 /**
  * Author: vishmee
  * Date: 1/16/25
  * Time: 2:48 AM
  * Description:
- *//*
-
-@WebServlet(name = "UserSaveServlet", value = "/registerServlet")
-public class User_Post extends HttpServlet {
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-int id = 1;
-        String name = req.getParameter("name");
-        String email = req.getParameter("email");
-        String password = req.getParameter("password");
-        String conformPassword = req.getParameter("conformPassword");
-        boolean activate = true;
-
-        // Validate password
-        if (!password.equals(conformPassword)) {
-            resp.sendRedirect("registerServlet.jsp?error=Passwords do not match");
-            return;
-        }
-        User user = new User(id,name, email,password,activate,new ArrayList<>(),new ArrayList<>());
-        Session session = lk.ijse.config.FactoryConfiguration.getInstance().getSession();
-        Transaction tx = session.beginTransaction();
-        session.save(user);
-        tx.commit();
-        session.close();
-        System.out.println("User saved successfully!");
-
-        resp.sendRedirect("registerServlet.jsp?message=Success save Customer");
-    }
-}
-*/
+ */
 package lk.ijse.Servlet.User;
 
 import jakarta.servlet.ServletException;
@@ -103,7 +59,7 @@ public class User_Post extends HttpServlet {
 
             userBO.save(userDTO);
             req.setAttribute("success", "User register Success.");
-            req.getRequestDispatcher("UserRegister.jsp").forward(req, resp);
+            req.getRequestDispatcher("index.jsp").forward(req, resp);
 
         } catch (Exception e) {
             e.printStackTrace();

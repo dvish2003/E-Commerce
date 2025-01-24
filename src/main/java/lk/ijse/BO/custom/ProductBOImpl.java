@@ -4,6 +4,7 @@ import lk.ijse.BO.ProductBO;
 import lk.ijse.DAO.DAOFactory;
 import lk.ijse.DAO.ProductDAO;
 import lk.ijse.DTO.CategoryDTO;
+import lk.ijse.DTO.OrderDetailDTO;
 import lk.ijse.DTO.ProductDTO;
 import lk.ijse.Entity.Category;
 import lk.ijse.Entity.Product;
@@ -33,7 +34,7 @@ public class ProductBOImpl implements ProductBO {
 
     @Override
     public boolean delete(String ID) throws Exception {
-        return productDA0.delete(ID);
+        return productDA0.delete(Integer.parseInt(ID));
     }
 
     @Override
@@ -51,5 +52,20 @@ public class ProductBOImpl implements ProductBO {
                     new CategoryDTO(product.getCategory().getCategoryId(), product.getCategory().getName())));
         }
         return productDTOS;
+    }
+    @Override
+    public boolean update1(List<OrderDetailDTO> odList) throws SQLException, ClassNotFoundException {
+        for (OrderDetailDTO od : odList) {
+            boolean isUpdateQty = updateQty(String.valueOf(od.getProduct().getProductId()), od.getQuantity());
+            if(!isUpdateQty) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public boolean updateQty(String Id, int qty) throws SQLException, ClassNotFoundException {
+        return productDA0.updateQty(Id,qty);
     }
 }

@@ -13,6 +13,7 @@ import lk.ijse.BO.custom.LoginBOImpl;
 import lk.ijse.DTO.LoginDTO;
 import lk.ijse.Entity.Login;
 import lk.ijse.Entity.User;
+import lk.ijse.Servlet.Product.CustomerHomeProduct;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
@@ -23,7 +24,7 @@ import java.sql.SQLException;
  * Time: 1:44 AM
  * Description:
  */
-@WebServlet(name = "UserLoginServlet", value = "/loginServlet")
+@WebServlet(name = "UserLoginServlet", value = {"/loginServlet"})
 public class User_Get extends HttpServlet {
     UserBO userBO = (UserBO) BOFactory.getBoFactory().getBo(BOFactory.BoType.User);
     LoginBO loginBO = (LoginBO) BOFactory.getBoFactory().getBo(BOFactory.BoType.Login);
@@ -44,9 +45,13 @@ public class User_Get extends HttpServlet {
             if (!BCrypt.checkpw(password, user.getPassword())) {
                 req.setAttribute("error", "Incorrect password.");
                 req.getRequestDispatcher("index.jsp").forward(req, resp);
+
                 return;
             }
+            CustomerHomeProduct customerHomeProduct = new CustomerHomeProduct();
             if (user.getRole().equals("Admin")){
+                // log wena user ta adala cart list eke thina data whhere user id user karan n data fetch krgnn one
+                // e data tik apsse table ekt set krnw
                 resp.sendRedirect("home.jsp");
                 loginBO.save(login);
 

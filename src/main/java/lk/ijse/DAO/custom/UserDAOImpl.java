@@ -37,11 +37,11 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public boolean delete(String ID) throws Exception {
+    public boolean delete(int ID) throws Exception {
         Session session = lk.ijse.config.FactoryConfiguration.getInstance().getSession();
         Transaction tx = session.beginTransaction();
         User user = new User();
-        user.setUserId(Integer.parseInt(ID));
+        user.setUserId(ID);
         session.delete(user);
         tx.commit();
         session.close();

@@ -52,7 +52,7 @@
                 <input type="password" class="form-control" name="password" id="password" placeholder="Enter your password" required>
             </div>
             <div class="d-grid">
-                <button type="submit" class="btn login-btn">Login</button>
+                <a href="${pageContext.request.contextPath}/homeProduct" type="submit" class="btn login-btn">Login</a>
             </div>
         </form>
         <div class="text-center mt-3">

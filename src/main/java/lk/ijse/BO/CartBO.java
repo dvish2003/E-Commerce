@@ -18,5 +18,9 @@ public interface CartBO extends SuperBO{
 
     boolean delete(String ID) throws Exception;
 
+    boolean deleteUserID(String ID) throws Exception;
+
     List<CartDTO> getAll() throws SQLException, ClassNotFoundException;
+
+    List<CartDTO> getCartsByUserId(int userId);
 }

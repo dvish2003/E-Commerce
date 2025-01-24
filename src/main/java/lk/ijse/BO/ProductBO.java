@@ -1,5 +1,6 @@
 package lk.ijse.BO;
 
+import lk.ijse.DTO.OrderDetailDTO;
 import lk.ijse.DTO.ProductDTO;
 
 import java.sql.SQLException;
@@ -19,4 +20,8 @@ public interface ProductBO extends SuperBO {
     boolean delete(String ID) throws Exception;
 
     List<ProductDTO> getAll() throws SQLException, ClassNotFoundException;
+
+    boolean update1(List<OrderDetailDTO> odList) throws SQLException, ClassNotFoundException;
+
+    boolean updateQty(String Id, int qty) throws SQLException, ClassNotFoundException;
 }

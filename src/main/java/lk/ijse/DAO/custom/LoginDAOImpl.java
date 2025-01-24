@@ -26,7 +26,7 @@ public class LoginDAOImpl implements LoginDAO {
     }
 
     @Override
-    public boolean delete(String ID) throws Exception {
+    public boolean delete(int ID) throws Exception {
         return false;
     }
 

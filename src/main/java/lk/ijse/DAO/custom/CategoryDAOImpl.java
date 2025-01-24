@@ -37,11 +37,11 @@ public class CategoryDAOImpl implements CategoryDAO {
     }
 
     @Override
-    public boolean delete(String ID) throws Exception {
+    public boolean delete(int ID) throws Exception {
         Session session = lk.ijse.config.FactoryConfiguration.getInstance().getSession();
         Transaction tx = session.beginTransaction();
         Category category = new Category();
-        category.setCategoryId(Integer.parseInt(ID));
+        category.setCategoryId(ID);
         session.delete(category);
         tx.commit();
         session.close();

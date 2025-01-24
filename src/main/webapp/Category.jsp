@@ -1,9 +1,19 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.Objects" %>
 <%@ page import="lk.ijse.DTO.CategoryDTO" %>
+<%@ page import="lk.ijse.DAO.UserDAO" %>
+<%@ page import="lk.ijse.DAO.DAOFactory" %>
+<%@ page import="lk.ijse.DAO.LoginDAO" %>
+<%@ page import="lk.ijse.Entity.Login" %>
+<%@ page import="lk.ijse.Entity.User" %>
 <%
     String alertType = (String) request.getAttribute("alertType");
     String alertMessage = (String) request.getAttribute("alertMessage");
+    UserDAO userDAO = (UserDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DaoType.User);
+    LoginDAO loginDAO = (LoginDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DaoType.Login);
+    Login login = loginDAO.getLastLogin();
+    User user = userDAO.searchByEmail(login.getUserMail());
+
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -115,15 +125,25 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
+            <%if(user.getRole().equals("Admin")){%>
             <ul class="navbar-nav me-auto">
                 <li class="nav-item"><a class="nav-link active" href="${pageContext.request.contextPath}/homeProduct">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="Category.jsp">Category</a></li>
                 <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/Product-List">Products</a></li>
-                <li class="nav-item"><a class="nav-link" href="Cart.jsp">Cart</a></li>
+                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/CheckoutServlet">Cart</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">Order</a></li>
                 <li class="nav-item"><a class="nav-link" href="UserDelete.jsp">Account</a></li>
                 <li class="nav-item"><a class="nav-link" href="index.jsp">Log out</a></li>
             </ul>
+            <%} else if (user.getRole().equals("Customer")) {%>
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link active" href="${pageContext.request.contextPath}/homeProduct">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/CheckoutServlet">Cart</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Order</a></li>
+                <li class="nav-item"><a class="nav-link" href="UserDelete.jsp">Account</a></li>
+                <li class="nav-item"><a class="nav-link" href="index.jsp">Log out</a></li>
+            </ul>
+            <%}%>
             <form class="d-flex" action="" method="get">
                 <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search" required>
                 <button class="btn btn-outline-success" type="submit">Search</button>

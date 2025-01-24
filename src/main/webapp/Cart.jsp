@@ -1,19 +1,30 @@
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="lk.ijse.Entity.Product" %>
+<%@ page import="lk.ijse.DAO.UserDAO" %>
+<%@ page import="lk.ijse.DAO.DAOFactory" %>
+<%@ page import="lk.ijse.DAO.LoginDAO" %>
+<%@ page import="lk.ijse.Entity.Login" %>
+<%@ page import="lk.ijse.Entity.User" %>
+<%@ page import="lk.ijse.DTO.CartDTO" %>
 
 <%
-/*
-    List<Product> cart = (List<Product>) session.getAttribute("cart");
-*/
+    List<CartDTO> cartList = (List<CartDTO>) request.getAttribute("cartList");
     String alertType = (String) request.getAttribute("alertType");
     String alertMessage = (String) request.getAttribute("alertMessage");
+    UserDAO userDAO = (UserDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DaoType.User);
+    LoginDAO loginDAO = (LoginDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DaoType.Login);
+    Login login = loginDAO.getLastLogin();
+    User user = userDAO.searchByEmail(login.getUserMail());
 %>
 
-<html>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Cart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <title>Cart List</title>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -24,15 +35,25 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
+            <%if(user.getRole().equals("Admin")){%>
             <ul class="navbar-nav me-auto">
                 <li class="nav-item"><a class="nav-link active" href="${pageContext.request.contextPath}/homeProduct">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="Category.jsp">Category</a></li>
                 <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/Product-List">Products</a></li>
-                <li class="nav-item"><a class="nav-link" href="Cart.jsp">Cart <%--<span style="color: #4CAF50; font-size: 15px" class="badge badge-danger">${cart.size()}</span>--%></a></li>
+                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/CheckoutServlet">Cart</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">Order</a></li>
                 <li class="nav-item"><a class="nav-link" href="UserDelete.jsp">Account</a></li>
                 <li class="nav-item"><a class="nav-link" href="index.jsp">Log out</a></li>
             </ul>
+            <%} else if (user.getRole().equals("Customer")) {%>
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link active" href="${pageContext.request.contextPath}/homeProduct">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/CheckoutServlet">Cart</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Order</a></li>
+                <li class="nav-item"><a class="nav-link" href="UserDelete.jsp">Account</a></li>
+                <li class="nav-item"><a class="nav-link" href="index.jsp">Log out</a></li>
+            </ul>
+            <%}%>
             <form class="d-flex" action="" method="get">
                 <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search" required>
                 <button class="btn btn-outline-success" type="submit">Search</button>
@@ -40,7 +61,6 @@
         </div>
     </div>
 </nav>
-
 <div class="container mt-5">
     <h1 class="text-center">Your Cart</h1>
 
@@ -50,10 +70,10 @@
     </div>
     <% } %>
 
-    <% if (cart == null || cart.isEmpty()) { %>
-    <p class="text-center mt-4">Your cart is empty. <a href="index.jsp">Start shopping!</a></p>
+    <% if (cartList.isEmpty()) { %>
+    <p class="text-center mt-4">Your cart is empty. <a href="${pageContext.request.contextPath}/homeProduct">Start shopping!</a></p>
     <% } else { %>
-    <form action="CheckoutServlet" method="post">
+    <form action="CheckoutServlet" method="get">
         <table class="table table-bordered table-hover mt-4">
             <thead class="table-light">
             <tr>
@@ -66,23 +86,18 @@
             </thead>
             <tbody>
             <% double totalAmount = 0.0; %>
-            <% for (Product product : cart) {
-                double productTotal = product.getPrice(); // Total price of a product
+            <% for (CartDTO cart : cartList) {
+                double productTotal = cart.getProduct().getPrice() * cart.getQuantity();
                 totalAmount += productTotal;
             %>
             <tr>
-                <td><%= product.getName() %></td>
-                <td>$<%= product.getPrice() %></td>
-                <td>
-                    <button type="button" class="btn btn-sm btn-warning" onclick="updateQuantity('<%= product.getName() %>', 'decrease')">-</button>
-                    <input type="number" id="quantity_<%= product.getName() %>" value="1" class="form-control d-inline-block" style="width: 50px;" oninput="updateTotal('<%= product.getName() %>', this.value)">
-                    <button type="button" class="btn btn-sm btn-success" onclick="updateQuantity('<%= product.getName() %>', 'increase')">+</button>
-                </td>
-
+                <td><%= cart.getProduct().getName() %></td>
+                <td>$<%= cart.getProduct().getPrice() %></td>
+                <td><%= cart.getQuantity() %></td>
                 <td>$<%= productTotal %></td>
                 <td>
                     <form action="RemoveFromCartServlet" method="post">
-                        <input type="hidden" name="productName" value="<%= product.getName() %>">
+                        <input type="hidden" name="cartId" value="<%= cart.getCartId() %>">
                         <button type="submit" class="btn btn-danger btn-sm">Remove</button>
                     </form>
                 </td>
@@ -90,15 +105,37 @@
             <% } %>
             </tbody>
         </table>
-
-        <div class="text-right">
-            <h4>Total: $<%= totalAmount %></h4>
-            <button type="submit" class="btn btn-primary">Proceed to Checkout</button>
+<div class="text-right">
+            <form action="CheckoutServletButton" method="post">
+                <h4>Total: $<%= totalAmount %></h4>
+                <input type="hidden" name="total" value="<%= totalAmount %>">
+                <button type="submit" class="btn btn-primary">Proceed to Checkout</button>
+            </form>
         </div>
     </form>
     <% } %>
 </div>
 
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    const alertType = '<%= alertType != null ? alertType : "" %>';
+    const alertMessage = '<%= alertMessage != null ? alertMessage.replace("'", "\\'") : "" %>';
+
+    if (alertType && alertMessage) {
+        Swal.fire({
+            icon: alertType, // Expected types: 'success', 'error', 'warning', 'info', 'question'
+            title: alertType.charAt(0).toUpperCase() + alertType.slice(1),
+            text: alertMessage,
+            confirmButtonText: 'OK'
+        }).then(() => {
+            // Redirect if the alertType is 'success' (optional)
+            if (alertType === 'success') {
+                window.location.href = '<%= request.getContextPath() %>/homeProduct'; // Redirect after success
+            }
+        });
+    }
+</script>
+
 </body>
 </html>

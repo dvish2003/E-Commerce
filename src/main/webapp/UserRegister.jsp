@@ -7,6 +7,8 @@
     <title>User Registration</title>
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.25/dist/sweetalert2.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <style>
         body {
             background-color: #f8f9fa;
@@ -77,17 +79,21 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.25/dist/sweetalert2.all.min.js"></script>
 
 <script>
-    <% if (message != null) { %>
+    <% if (request.getAttribute("success") != null) { %>
     Swal.fire({
         icon: 'success',
         title: 'Success',
-        text: '<%= message %>',
+        text: '<%= request.getAttribute("success") %>',
+        confirmButtonText: 'OK'
+    }).then(() => {
+        window.location.href = "index.jsp";
     });
-    <% } else if (error != null) { %>
+    <% } else if (request.getAttribute("error") != null) { %>
     Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: '<%= error %>',
+        text: '<%= request.getAttribute("error") %>',
+        confirmButtonText: 'Try Again'
     });
     <% } %>
 </script>

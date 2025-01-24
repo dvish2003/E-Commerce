@@ -62,11 +62,11 @@ public class ProductDAOImpl implements ProductDAO {
     }
 
     @Override
-    public boolean delete(String ID) throws Exception {
+    public boolean delete(int ID) throws Exception {
              Session session = lk.ijse.config.FactoryConfiguration.getInstance().getSession();
             Transaction tx = session.beginTransaction();
             Query query = session.createQuery("DELETE FROM Product WHERE id = :productId");
-            query.setParameter("productId", Integer.parseInt(ID));
+            query.setParameter("productId", ID);
             int result = query.executeUpdate();
             tx.commit();
             session.close();
@@ -95,6 +95,32 @@ public class ProductDAOImpl implements ProductDAO {
         session.close();
         return product;
     }
+
+/*    @Override
+    public boolean updateQty(String id, int qty) {
+        Session session = lk.ijse.config.FactoryConfiguration.getInstance().getSession();
+        Transaction tx = session.beginTransaction();
+        Product product = new Product();
+        product.setProductId(Integer.parseInt(id));
+        product.setQuantity(qty);
+        session.update(product);
+        tx.commit();
+        session.close();
+        return true;
+    }*/
+@Override
+public boolean updateQty(String id, int qty) {
+    Session session = lk.ijse.config.FactoryConfiguration.getInstance().getSession();
+    Transaction tx = session.beginTransaction();
+        Query query = session.createQuery("UPDATE Product p SET p.quantity = p.quantity - :qty WHERE p.productId = :id");
+        query.setParameter("qty", qty);
+        query.setParameter("id", Integer.parseInt(id));
+
+        query.executeUpdate();
+        tx.commit();
+    return true;
+}
+
 
 }
 
