@@ -14,100 +14,144 @@
     LoginDAO loginDAO = (LoginDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DaoType.Login);
     Login login = loginDAO.getLastLogin();
     User user = userDAO.searchByEmail(login.getUserMail());
-
 %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" style="position: fixed">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        /* Custom Styles */
+        .product-card {
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
 
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
 
-</head>
-<style>
-    .product-card {
-        border-radius: 10px;
-        overflow: hidden;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .product-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    }
-
-    /* Image Wrapper */
-    .card-img-wrapper {
-        height: 200px;
-        overflow: hidden;
-        position: relative;
-    }
-    .product-image {
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-        transition: transform 0.5s ease;
-    }
-    .product-card:hover .product-image {
-        transform: scale(1.1);
-    }
-
-    /* Button Styles */
-    .add-to-cart-btn {
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        transition: background-color 0.3s ease;
-    }
-    .add-to-cart-btn:hover {
-        background-color: #0056b3;
-    }
-
-    /* Quantity Input */
-    .quantity-input {
-        text-align: center;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-    }
-
-    /* Typography */
-    .card-title {
-        font-size: 1.1rem;
-        color: #333;
-    }
-    .card-text {
-        color: #666;
-        font-size: 0.9rem;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 576px) {
         .card-img-wrapper {
-            height: 150px;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
         }
+
+        .product-image {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.1);
+        }
+
+        .add-to-cart-btn {
+            background-color: black;
+            color: #fff;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: gray;
+        }
+
+        .quantity-input {
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
         .card-title {
-            font-size: 1rem;
+            font-size: 1.1rem;
+            color: #333;
         }
+
         .card-text {
-            font-size: 0.85rem;
+            color: #666;
+            font-size: 0.9rem;
         }
-    }
 
+        .navbar {
+            background: linear-gradient(to right, #000000, #434343); /* Black to dark gray gradient */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
 
-</style>
+        .navbar .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        .navbar-nav .nav-item .nav-link {
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 12px 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar-nav .nav-item .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+
+        .navbar-nav .nav-item .nav-link.active {
+            background-color: rgba(0, 0, 0, 0.2);
+            color: #fff;
+        }
+
+        .form-control {
+            border-radius: 20px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .btn-outline-success {
+            color: black;
+            border-color: black;
+            border-radius: 20px;
+            padding: 8px 20px;
+        }
+
+        .btn-outline-success:hover {
+            background-color: gray;
+            color: #fff;
+        }
+
+        section {
+            background-image: radial-gradient(circle at center, #E6E6FA, #D1C4E9);
+        }
+        .Card{
+            position: relative;
+            top: -50px;
+        }
+
+    </style>
+</head>
 <body>
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">VishMart</a>
+        <a class="navbar-brand" href="#">Adventure Mart</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <%if(user.getRole().equals("Admin")){%>
+            <% if(user.getRole().equals("Admin")) { %>
             <ul class="navbar-nav me-auto">
                 <li class="nav-item"><a class="nav-link active" href="${pageContext.request.contextPath}/homeProduct">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="Category.jsp">Category</a></li>
@@ -117,7 +161,7 @@
                 <li class="nav-item"><a class="nav-link" href="UserDelete.jsp">Account</a></li>
                 <li class="nav-item"><a class="nav-link" href="index.jsp">Log out</a></li>
             </ul>
-            <%} else if (user.getRole().equals("Customer")) {%>
+            <% } else if (user.getRole().equals("Customer")) { %>
             <ul class="navbar-nav me-auto">
                 <li class="nav-item"><a class="nav-link active" href="${pageContext.request.contextPath}/homeProduct">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/CheckoutServlet">Cart</a></li>
@@ -125,19 +169,20 @@
                 <li class="nav-item"><a class="nav-link" href="UserDelete.jsp">Account</a></li>
                 <li class="nav-item"><a class="nav-link" href="index.jsp">Log out</a></li>
             </ul>
-            <%}%>
-            <!-- Search Bar -->
+            <% } %>
             <form class="d-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
-
         </div>
     </div>
 </nav>
-<section>
+
+<!-- Products Section -->
+<section class="Card">
     <div class="container mt-5">
-        <h2 class="text-center mb-4">Our Products</h2>
+        <br>
+        <h2 class="text-center mb-4">Adventuring Products</h2>
         <div class="row">
             <% if (dataList != null && !dataList.isEmpty()) { %>
             <% for (ProductDTO productDTO : dataList) { %>
@@ -156,7 +201,7 @@
                                 <input type="number" id="quantity_<%= productDTO.getProductId() %>"
                                        name="quantity"
                                        class="form-control text-center quantity-input"
-                                       style="width: 70px;"
+                                       style="width: 100px;"
                                        min="1"
                                        max="<%= productDTO.getQuantity() %>"
                                        required>
@@ -178,8 +223,8 @@
             <% } %>
         </div>
     </div>
-
 </section>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     const alertType = '<%= alertType != null ? alertType : "" %>';
@@ -201,18 +246,3 @@
 
 </body>
 </html>
-
-
-
-
-
-<%--
-image path = 10 amazing Apple iPhone hacks you might not be aware of.jpeg
-image path = ALISISTER Mens 3D Hoodies Funny Digital Print Hooded Pullover Sweatshirt With Fleece Plush S-XXL.jpeg
-image path = Gerryellis Shoes men Sneakers Male casual Mens Shoes tenis Luxury shoes Trainer Race Breathable Shoes fashion loafers running Shoes for men 2093-39.jpeg
-image path = Helmut Lang.jpeg
-image path = Inspiration 67 _ Chairs — Saturday School.jpeg
-image path = Reflective Techwear Shoes - Black _ 6_5 US _ 39 EU.jpeg
-image path = URBAN TREK ELEVATE SNEAKERS - Gray _ 42.jpeg
-
---%>

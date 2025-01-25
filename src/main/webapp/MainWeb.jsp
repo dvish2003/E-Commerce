@@ -85,6 +85,130 @@
             color: white;
             font-size: 30px;
         }
+        .about {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 50px;
+            background-color: #f4f4f4;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .about .container {
+            flex: 1;
+            max-width: 60%;
+            animation: slideIn 1s ease-out;
+        }
+
+        .about h1 {
+            font-size: 3rem;
+            color: #333;
+            margin-bottom: 20px;
+            animation: fadeInUp 1.5s ease-out;
+        }
+
+        .about p {
+            font-size: 1.2rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            animation: fadeInUp 1.8s ease-out;
+        }
+
+        .about-img {
+            max-width: 40%;
+            height: auto;
+            border-radius: 10px;
+            animation: slideInRight 1s ease-out;
+        }
+        /* Footer Styles */
+        .footer {
+            background-color: #333;
+            color: white;
+            padding: 40px 0;
+            font-size: 1rem;
+        }
+
+        .footer .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer .footer-content {
+            text-align: center;
+        }
+
+        .footer p {
+            margin: 10px 0;
+        }
+
+        .footer .social-links {
+            margin: 20px 0;
+        }
+
+        .footer .social-icon {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+
+        .footer .social-icon:hover {
+            color: #007bff;
+        }
+
+        @media (max-width: 768px) {
+            .footer p {
+                font-size: 0.9rem;
+            }
+
+            .footer .social-icon {
+                font-size: 1.3rem;
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            0% {
+                transform: translateX(-50px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInRight {
+            0% {
+                transform: translateX(50px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
 
         @media (max-width: 768px) {
             #home {
@@ -123,8 +247,32 @@
         </div>
     </div>
 </section>
+<section class="about">
+    <div class="container">
+        <h1 class="text-uppercase fw-semibold display-4">About Forest Lover</h1>
+        <p>Forest Lover Online Mart is a leading online store dedicated to providing high-quality hiking tools and adventure gear. Our mission is to help users discover new and exciting hiking destinations, while also fostering a community of like-minded individuals who share our passion for exploration and adventure. We offer a wide range of gear, from trekking poles to backpacks, designed for every type of adventurer. Whether you're a beginner or an experienced hiker, we have something to suit your needs.</p>
+        <p>Our team consists of hiking enthusiasts who understand the importance of reliable and durable equipment. Every product in our store is carefully selected based on quality, functionality, and sustainability. We work with trusted suppliers to ensure that our customers receive the best gear for their outdoor pursuits. At Forest Lover, we are also committed to promoting eco-friendly practices. We encourage our customers to adopt sustainable hiking habits, and we strive to minimize our environmental impact through the products we offer and the packaging we use.</p>
+        <p>We believe that hiking is not just a physical activity, but a lifestyle. It's about connecting with nature, pushing your limits, and finding peace in the great outdoors. Our goal is to be more than just a store; we aim to be a source of inspiration for those who are passionate about hiking and the natural world. Join our community today and start your next adventure with Forest Lover!</p>
+    </div>
+    <img src="webImage/pexels-ozgomz-925263.jpg" alt="Forest Lover" class="about-img">
+</section>
+<!-- Footer Section -->
+<footer class="footer">
+    <div class="container text-center">
+        <div class="footer-content">
+            <p>&copy; 2025 Forest Lover Online Mart. All Rights Reserved.</p>
+            <div class="social-links">
+                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <p>Contact Us: info@forestlover.com | +94 72 503 8727</p>
+        </div>
+    </div>
+</footer>
 
-<!-- Optional JavaScript -->
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     const images = [

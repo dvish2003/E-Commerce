@@ -106,13 +106,60 @@
         .alert-warning {
             color: #ffc107;
         }
+        .navbar {
+            background: linear-gradient(to right, #000000, #434343); /* Black to dark gray gradient */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+
+        .navbar .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        .navbar-nav .nav-item .nav-link {
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 12px 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar-nav .nav-item .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+
+        .navbar-nav .nav-item .nav-link.active {
+            background-color: rgba(0, 0, 0, 0.2);
+            color: #fff;
+        }
+
+        .form-control {
+            border-radius: 20px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .btn-outline-success {
+            color: black;
+            border-color: black;
+            border-radius: 20px;
+            padding: 8px 20px;
+        }
+
+        .btn-outline-success:hover {
+            background-color: gray;
+            color: #fff;
+        }
 
     </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">VishMart</a>
+        <a class="navbar-brand" href="#">Adventure Mart</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

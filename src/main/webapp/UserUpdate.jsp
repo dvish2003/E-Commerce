@@ -9,26 +9,50 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- SweetAlert2 -->
     <style>
         body {
-            background-color: #f8f9fa;
+            background-color: #121212; /* Dark background for the entire page */
+            color: #eaeaea; /* Light text for contrast */
         }
         .forgot-password-container {
             max-width: 400px;
             margin: 50px auto;
-            background: #ffffff;
+            background: #1f1f1f; /* Dark background for the form container */
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5); /* Darker shadow for a sleek look */
         }
         .submit-btn {
-            background-color: #007bff;
-            color: #fff;
+            background-color: #007bff; /* Blue background */
+            color: #fff; /* White text */
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            padding: 10px;
         }
         .submit-btn:hover {
-            background-color: #0056b3;
+            background-color: #0056b3; /* Darker blue on hover */
+            cursor: pointer;
+        }
+        .submit-btn:focus {
+            outline: none; /* Remove outline on focus */
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add blue focus shadow */
+        }
+        .form-control {
+            background-color: #2d2d2d; /* Dark background for inputs */
+            color: #fff; /* White text in inputs */
+            border: 1px solid #555; /* Subtle border */
         }
         .form-control:focus {
-            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Focus effect with blue shadow */
+            border-color: #007bff; /* Blue border on focus */
+        }
+        .alert {
+            border-radius: 4px; /* Rounded corners for alert */
+        }
+        .text-center a {
+            color: #007bff; /* Blue color for links */
+        }
+        .text-center a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
