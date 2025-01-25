@@ -20,7 +20,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" style="position: fixed">
     <title>Home Page</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -29,6 +29,72 @@
 
 </head>
 <style>
+    .product-card {
+        border-radius: 10px;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .product-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Image Wrapper */
+    .card-img-wrapper {
+        height: 200px;
+        overflow: hidden;
+        position: relative;
+    }
+    .product-image {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+    .product-card:hover .product-image {
+        transform: scale(1.1);
+    }
+
+    /* Button Styles */
+    .add-to-cart-btn {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        transition: background-color 0.3s ease;
+    }
+    .add-to-cart-btn:hover {
+        background-color: #0056b3;
+    }
+
+    /* Quantity Input */
+    .quantity-input {
+        text-align: center;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    /* Typography */
+    .card-title {
+        font-size: 1.1rem;
+        color: #333;
+    }
+    .card-text {
+        color: #666;
+        font-size: 0.9rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 576px) {
+        .card-img-wrapper {
+            height: 150px;
+        }
+        .card-title {
+            font-size: 1rem;
+        }
+        .card-text {
+            font-size: 0.85rem;
+        }
+    }
 
 
 </style>
@@ -69,46 +135,51 @@
         </div>
     </div>
 </nav>
-
-<!-- Product Cards Section -->
-<div class="container mt-5">
-    <h2 class="text-center mb-4">Our Products</h2>
-    <div class="row">
-        <% if (dataList != null && !dataList.isEmpty()) { %>
-        <% for (ProductDTO productDTO : dataList) { %>
-        <div class="col-md-4 col-lg-3 mb-4">
-            <div class="card shadow-sm">
-                <div class="card-img-wrapper">
-                    <img src="asesst/<%= productDTO.getImagePath() %>" class="card-img-top" alt="<%= productDTO.getName() %>">
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title"><%= productDTO.getName() %></h5>
-                    <p class="card-text">Price: $<%= productDTO.getPrice() %></p>
-                    <form action="AddToCartServlet" method="post">
-                    <div class="mb-3 d-flex align-items-center">
-                        <label for="quantity_<%= productDTO.getName() %>" class="me-2">Qty:</label>
-                        <input type="number" id="quantity_<%= productDTO.getName() %>" name="quantity" class="form-control" style="width: 70px;" min="1" max="<%= productDTO.getQuantity() %>" required>
-<%--
-                        <input id="price" type="number" step="0.01" name="price" class="form-control" placeholder="Enter Price" required>
---%>
-
+<section>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Our Products</h2>
+        <div class="row">
+            <% if (dataList != null && !dataList.isEmpty()) { %>
+            <% for (ProductDTO productDTO : dataList) { %>
+            <div class="col-md-4 col-lg-3 mb-4">
+                <div class="card product-card shadow-sm position-relative">
+                    <div class="card-img-wrapper overflow-hidden">
+                        <img src="asesst/<%= productDTO.getImagePath() %>" class="card-img-top product-image" alt="<%= productDTO.getName() %>">
                     </div>
-
-                    <p class="card-text">Description: <%= productDTO.getDescription() %></p>
-                    <p class="card-text">Available Stock: <%= productDTO.getQuantity() %></p>
-                    <p class="card-text">Category: <%= productDTO.getCategory().getName() %></p>
-                        <input type="hidden" name="productName" value="<%= productDTO.getName() %>">
-                        <input type="hidden" name="productPrice" value="<%= productDTO.getPrice() %>">
-                        <button type="submit" class="btn btn-primary w-100">Add to Cart</button>
-                    </form>
+                    <div class="card-body text-center">
+                        <h5 class="card-title fw-bold"><%= productDTO.getName() %></h5>
+                        <p class="card-text text-muted">Price: $<%= productDTO.getPrice() %></p>
+                        <p class="card-text small text-truncate">Description: <%= productDTO.getDescription() %></p>
+                        <form action="AddToCartServlet" method="post">
+                            <div class="quantity-wrapper mb-3 d-flex justify-content-center align-items-center">
+                                <label for="quantity_<%= productDTO.getProductId() %>" class="me-2">Qty:</label>
+                                <input type="number" id="quantity_<%= productDTO.getProductId() %>"
+                                       name="quantity"
+                                       class="form-control text-center quantity-input"
+                                       style="width: 70px;"
+                                       min="1"
+                                       max="<%= productDTO.getQuantity() %>"
+                                       required>
+                            </div>
+                            <p class="card-text small text-muted">Available Stock: <%= productDTO.getQuantity() %></p>
+                            <p class="card-text small text-muted">Category: <%= productDTO.getCategory().getName() %></p>
+                            <input type="hidden" name="productName" value="<%= productDTO.getName() %>">
+                            <input type="hidden" name="productPrice" value="<%= productDTO.getPrice() %>">
+                            <button type="submit" class="btn btn-primary w-100 add-to-cart-btn">Add to Cart</button>
+                        </form>
+                    </div>
                 </div>
             </div>
+            <% } %>
+            <% } else { %>
+            <div class="col-12">
+                <p class="text-center text-muted">No products available.</p>
+            </div>
+            <% } %>
         </div>
-        <% } %>
-        <% } %>
     </div>
-</div>
 
+</section>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     const alertType = '<%= alertType != null ? alertType : "" %>';

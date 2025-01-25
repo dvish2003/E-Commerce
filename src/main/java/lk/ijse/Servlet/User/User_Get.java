@@ -50,13 +50,11 @@ public class User_Get extends HttpServlet {
             }
             CustomerHomeProduct customerHomeProduct = new CustomerHomeProduct();
             if (user.getRole().equals("Admin")){
-                // log wena user ta adala cart list eke thina data whhere user id user karan n data fetch krgnn one
-                // e data tik apsse table ekt set krnw
-                resp.sendRedirect("home.jsp");
+                resp.sendRedirect("MainWeb.jsp");
                 loginBO.save(login);
 
             }else if (user.getRole().equals("Customer")){
-                resp.sendRedirect("customerHome.jsp");
+                resp.sendRedirect("MainWeb.jsp");
                 loginBO.save(login);
 
             }
