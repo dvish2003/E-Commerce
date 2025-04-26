@@ -18,6 +18,13 @@
 
 ## 🚀 Quick Start
 
+graph TD
+    A[JSP Views] --> B[Servlets]
+    B --> C[Service Layer]
+    C --> D[DAO Layer]
+    D --> E[MySQL Database]
+    B --> F[Razorpay API]
+
 ```bash
 # Clone with SSH
 git clone git@github.com:dvish2003/E-Commerce.git
@@ -29,12 +36,7 @@ mysql -u root -p < database/ecommerce_db.sql
 mvn clean package
 cp target/SparkCart.war $CATALINA_HOME/webapps/
 
-graph TD
-    A[JSP Views] --> B[Servlets]
-    B --> C[Service Layer]
-    C --> D[DAO Layer]
-    D --> E[MySQL Database]
-    B --> F[Razorpay API]
+
 
 ├── src/
 │   ├── main/
