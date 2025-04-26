@@ -1,4 +1,4 @@
-# 🛍️ SparkCart - Modern E-Commerce Platform
+# 🛍️ Modern E-Commerce Platform
 
 <div align="center">
   <img src="https://media.giphy.com/media/juua9i2c2fA0AIp2iq/giphy.gif" width="200" alt="E-Commerce Demo">
